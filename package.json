@@ -4,7 +4,7 @@
   "description": "Programa de mano digital para Alicia en el país de las maravillas",
   "main": "index.html",
   "scripts": {
-    "dev": "http-server -p 3000"
+    "dev": "http-server -p 3000 -c-1"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

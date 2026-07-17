@@ -65,6 +65,7 @@
       bottom: 20px;
       border: 2px solid var(--color-gold);
       pointer-events: none;
+      z-index: 2;
     }
 
     .border-frame-inner {
@@ -82,41 +83,87 @@
       width: 40px;
       height: 40px;
       color: var(--color-red);
+      z-index: 3;
     }
     .corner-tl { top: 30px; left: 30px; }
     .corner-tr { top: 30px; right: 30px; transform: rotate(90deg); }
     .corner-bl { bottom: 30px; left: 30px; transform: rotate(-90deg); }
     .corner-br { bottom: 30px; right: 30px; transform: rotate(180deg); }
 
+    /* Cartas de Juego Flotantes de Fondo */
+    .flyer-card {
+      position: absolute;
+      width: 60px;
+      height: 90px;
+      background-color: white;
+      border: 1px solid var(--color-gold);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-family: 'Lora', serif;
+      font-weight: bold;
+      font-size: 16px;
+      z-index: 1;
+      user-select: none;
+    }
+    
+    .card-hearts {
+      color: var(--color-red);
+      top: 150px;
+      left: 60px;
+      transform: rotate(-15deg);
+    }
+    
+    .card-spades {
+      color: var(--color-dark);
+      bottom: 280px;
+      right: 65px;
+      transform: rotate(15deg);
+    }
+
+    .flyer-card .card-suit {
+      font-size: 18px;
+      line-height: 1;
+      align-self: flex-end;
+    }
+
+    .flyer-card .card-val {
+      align-self: flex-start;
+      line-height: 1;
+    }
+
     /* ==========================================================================
        CONTENIDO DEL VOLANTE
        ========================================================================== */
     .header {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 15px;
       width: 100%;
       z-index: 10;
     }
 
     .school-title {
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 5px;
       color: var(--color-muted);
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .divider-svg {
       width: 220px;
-      height: 16px;
+      height: 14px;
       fill: var(--color-gold);
-      margin: 0 auto 12px auto;
+      margin: 0 auto 10px auto;
     }
 
     .show-title {
       font-family: 'Lora', serif;
-      font-size: 38px;
+      font-size: 36px;
       font-weight: 700;
       color: var(--color-red);
       line-height: 1.2;
@@ -125,42 +172,63 @@
 
     .show-subtitle {
       font-family: 'Lora', serif;
-      font-size: 20px;
+      font-size: 19px;
       font-style: italic;
       color: var(--color-dark);
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
-    /* Bloque Central del QR */
+    /* Bloque Central de QR + Ilustraciones Flanqueantes */
+    .interactive-center-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 30px;
+      z-index: 10;
+      margin: 15px 0;
+    }
+
+    .flyer-illustration {
+      width: 140px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 16px rgba(139, 126, 103, 0.25));
+    }
+
+    /* Espejamos el Conejo para que mire hacia el centro (QR) */
+    .ill-rabbit {
+      transform: scaleX(-1);
+    }
+
     .qr-container-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 10;
     }
 
     .qr-box {
       background: white;
       border: 3px double var(--color-gold);
-      padding: 24px;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(139, 126, 103, 0.12);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .qr-image {
-      width: 200px;
-      height: 200px;
+      width: 170px;
+      height: 170px;
       display: block;
     }
 
     .qr-badge {
       font-family: 'Special Elite', monospace;
-      font-size: 16px;
+      font-size: 14px;
       background-color: var(--color-red);
       color: white;
       padding: 6px 16px;
@@ -180,26 +248,26 @@
 
     .cta-text {
       font-family: 'Lora', serif;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--color-dark);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
 
     .features-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
       text-align: left;
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     .feature-item {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      font-size: 13.5px;
+      gap: 8px;
+      font-size: 12.5px;
       color: var(--color-muted);
       line-height: 1.4;
     }
@@ -208,32 +276,32 @@
       color: var(--color-dark);
       display: block;
       font-family: 'Lora', serif;
-      font-size: 14.5px;
+      font-size: 13.5px;
       margin-bottom: 2px;
     }
 
     .feature-icon {
-      font-size: 18px;
+      font-size: 16px;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     /* Pie de página */
     .footer {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       z-index: 10;
     }
 
     .clock-svg {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       fill: var(--color-gold);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .footer-subtext {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--color-muted);
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -323,6 +391,16 @@
       <rect x="15" y="15" width="6" height="6" fill="currentColor"/>
     </svg>
 
+    <!-- Cartas de Juego de Fondo -->
+    <div class="flyer-card card-hearts">
+      <span class="card-val">A</span>
+      <span class="card-suit">♥</span>
+    </div>
+    <div class="flyer-card card-spades">
+      <span class="card-val">Q</span>
+      <span class="card-suit">♠</span>
+    </div>
+
     <!-- Encabezado -->
     <div class="header">
       <p class="school-title">Ballet Teatro de Guadalajara</p>
@@ -337,15 +415,23 @@
       <h2 class="show-subtitle">Programa de Mano Digital</h2>
     </div>
 
-    <!-- Contenedor del QR -->
-    <div class="qr-container-wrapper">
-      <div class="qr-box">
-        <!-- Imagen del código QR local en la carpeta del proyecto -->
-        <img src="images/qr-code.png" alt="Código QR del Programa" class="qr-image">
+    <!-- Sección Central Interactiva con Dibujos -->
+    <div class="interactive-center-row">
+      <!-- El Conejo Blanco en la izquierda (Flipped) -->
+      <img src="images/conejo.png" alt="Conejo Blanco" class="flyer-illustration ill-rabbit">
+      
+      <!-- Contenedor del QR -->
+      <div class="qr-container-wrapper">
+        <div class="qr-box">
+          <img src="images/qr-code.png" alt="Código QR del Programa" class="qr-image">
+        </div>
+        <div class="qr-badge">
+          <span>🗝️ Escanear para abrir</span>
+        </div>
       </div>
-      <div class="qr-badge">
-        <span>🗝️ Escanear para abrir</span>
-      </div>
+
+      <!-- Alicia en la derecha -->
+      <img src="images/alicia.png" alt="Alicia" class="flyer-illustration ill-alice">
     </div>
 
     <!-- Instrucciones y Qué incluye -->

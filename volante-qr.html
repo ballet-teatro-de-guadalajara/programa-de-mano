@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volante QR - Alicia en el País de las Maravillas</title>
+  
+  <!-- Fuentes Elegantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       ESTILOS GENERALES (PANTALLA)
+       ========================================================================== */
+    :root {
+      --color-red: #c84630;
+      --color-gold: #e5b154;
+      --color-dark: #1c1c1c;
+      --color-muted: #5e5449;
+      --bg-cream: #fcf9f2;
+      --border-frame: #e5decb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #d1c7bd;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Contenedor tamaño carta */
+    .flyer-page {
+      background: radial-gradient(circle, var(--bg-cream) 60%, #f4ebd6 100%);
+      width: 8.5in;
+      height: 11in;
+      position: relative;
+      padding: 0.5in;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Marco Ornamental de Alicia */
+    .border-frame {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 2px solid var(--color-gold);
+      pointer-events: none;
+    }
+
+    .border-frame-inner {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 1px solid var(--color-red);
+    }
+
+    /* Esquinas Ornamentadas en SVG */
+    .corner-decor {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      color: var(--color-red);
+    }
+    .corner-tl { top: 30px; left: 30px; }
+    .corner-tr { top: 30px; right: 30px; transform: rotate(90deg); }
+    .corner-bl { bottom: 30px; left: 30px; transform: rotate(-90deg); }
+    .corner-br { bottom: 30px; right: 30px; transform: rotate(180deg); }
+
+    /* ==========================================================================
+       CONTENIDO DEL VOLANTE
+       ========================================================================== */
+    .header {
+      text-align: center;
+      margin-top: 20px;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .school-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      color: var(--color-muted);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .divider-svg {
+      width: 220px;
+      height: 16px;
+      fill: var(--color-gold);
+      margin: 0 auto 12px auto;
+    }
+
+    .show-title {
+      font-family: 'Lora', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--color-red);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .show-subtitle {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--color-dark);
+      margin-top: 4px;
+    }
+
+    /* Bloque Central del QR */
+    .qr-container-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .qr-box {
+      background: white;
+      border: 3px double var(--color-gold);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(139, 126, 103, 0.12);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .qr-image {
+      width: 200px;
+      height: 200px;
+      display: block;
+    }
+
+    .qr-badge {
+      font-family: 'Special Elite', monospace;
+      font-size: 16px;
+      background-color: var(--color-red);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(200, 70, 48, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Sección de Instrucciones */
+    .instructions-section {
+      text-align: center;
+      max-width: 85%;
+      z-index: 10;
+    }
+
+    .cta-text {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--color-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--color-muted);
+      line-height: 1.4;
+    }
+
+    .feature-item strong {
+      color: var(--color-dark);
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 14.5px;
+      margin-bottom: 2px;
+    }
+
+    .feature-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Pie de página */
+    .footer {
+      text-align: center;
+      margin-bottom: 15px;
+      z-index: 10;
+    }
+
+    .clock-svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--color-gold);
+      margin-bottom: 8px;
+    }
+
+    .footer-subtext {
+      font-size: 11px;
+      color: var(--color-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Botón para imprimir en pantalla */
+    .print-btn-float {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--color-dark);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      transition: transform 0.2s ease;
+    }
+    .print-btn-float:hover {
+      transform: scale(1.05);
+      background-color: #333;
+    }
+
+    /* ==========================================================================
+       ESTILOS DE IMPRESIÓN (MEDIO PRINT)
+       ========================================================================== */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+      .print-btn-float {
+        display: none;
+      }
+      .flyer-page {
+        box-shadow: none;
+        width: 8.5in;
+        height: 11in;
+        margin: 0;
+        page-break-after: always;
+      }
+      @page {
+        size: letter;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón Flotante para Mandar a Imprimir -->
+  <button class="print-btn-float" onclick="window.print()">
+    🖨️ Guardar o Imprimir PDF
+  </button>
+
+  <!-- Volante en Tamaño Carta -->
+  <div class="flyer-page">
+    
+    <!-- Marcos de Diseño -->
+    <div class="border-frame">
+      <div class="border-frame-inner"></div>
+    </div>
+
+    <!-- Esquinas Vectoriales -->
+    <svg class="corner-decor corner-tl" viewBox="0 0 100 100">
+      <path d="M 0 0 L 100 0 L 100 8 L 8 8 L 8 100 L 0 100 Z" fill="currentColor"/>
+      <rect x="15" y="15" width="6" height="6" fill="currentColor"/>
+    </svg>
+    <svg class="corner-decor corner-tr" viewBox="0 0 100 100">
+      <path d="M 0 0 L 100 0 L 100 8 L 8 8 L 8 100 L 0 100 Z" fill="currentColor"/>
+      <rect x="15" y="15" width="6" height="6" fill="currentColor"/>
+    </svg>
+    <svg class="corner-decor corner-bl" viewBox="0 0 100 100">
+      <path d="M 0 0 L 100 0 L 100 8 L 8 8 L 8 100 L 0 100 Z" fill="currentColor"/>
+      <rect x="15" y="15" width="6" height="6" fill="currentColor"/>
+    </svg>
+    <svg class="corner-decor corner-br" viewBox="0 0 100 100">
+      <path d="M 0 0 L 100 0 L 100 8 L 8 8 L 8 100 L 0 100 Z" fill="currentColor"/>
+      <rect x="15" y="15" width="6" height="6" fill="currentColor"/>
+    </svg>
+
+    <!-- Encabezado -->
+    <div class="header">
+      <p class="school-title">Ballet Teatro de Guadalajara</p>
+      
+      <!-- Divisor Ornamental Vectorial -->
+      <svg class="divider-svg" viewBox="0 0 400 20">
+        <path d="M 0 10 Q 100 0 200 10 T 400 10 M 150 10 L 250 10 M 180 6 L 220 6 M 190 14 L 210 14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        <circle cx="200" cy="10" r="4" fill="currentColor"/>
+      </svg>
+
+      <h1 class="show-title">Alicia en el país de las maravillas</h1>
+      <h2 class="show-subtitle">Programa de Mano Digital</h2>
+    </div>
+
+    <!-- Contenedor del QR -->
+    <div class="qr-container-wrapper">
+      <div class="qr-box">
+        <!-- Imagen del código QR local en la carpeta del proyecto -->
+        <img src="images/qr-code.png" alt="Código QR del Programa" class="qr-image">
+      </div>
+      <div class="qr-badge">
+        <span>🗝️ Escanear para abrir</span>
+      </div>
+    </div>
+
+    <!-- Instrucciones y Qué incluye -->
+    <div class="instructions-section">
+      <p class="cta-text">Escanea el código QR con la cámara de tu celular y entra a la magia de Wonderland</p>
+      
+      <div class="features-list">
+        <div class="feature-item">
+          <span class="feature-icon">📖</span>
+          <div>
+            <strong>Programa de la función</strong>
+            Sigue las escenas del primer y segundo acto paso a paso.
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">👥</span>
+          <div>
+            <strong>Elenco completo</strong>
+            Conoce a los personajes principales, solistas y cuerpo de baile.
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🎭</span>
+          <div>
+            <strong>Test de personaje</strong>
+            Descubre qué habitante de Wonderland coincide con tu personalidad.
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📍</span>
+          <div>
+            <strong>Escuela de Ballet</strong>
+            Conoce la historia, valores e información para pre-inscripciones.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <div class="footer">
+      <!-- Reloj de bolsillo del conejo blanco en SVG -->
+      <svg class="clock-svg" viewBox="0 0 64 64">
+        <circle cx="32" cy="36" r="20" stroke="currentColor" stroke-width="3" fill="none"/>
+        <circle cx="32" cy="36" r="3" fill="currentColor"/>
+        <!-- Agujas del reloj -->
+        <line x1="32" y1="36" x2="32" y2="24" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <line x1="32" y1="36" x2="42" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Argolla del reloj arriba -->
+        <path d="M 32 16 L 32 8 M 24 8 L 40 8 M 28 8 A 4 4 0 0 1 36 8" stroke="currentColor" stroke-width="3" fill="none"/>
+      </svg>
+      <p class="footer-subtext">Disfruta la función • Ciclo Escolar 2026-2027</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
